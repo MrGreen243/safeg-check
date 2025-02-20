@@ -76,5 +76,5 @@ document.addEventListener('DOMContentLoaded', function () {
     }
   }
 
-  const checkInterval = setInterval(checkLocalStorage, 100);
+  const checkInterval = setInterval(checkLocalStorage, 1000);
 });
