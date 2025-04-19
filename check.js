@@ -42,11 +42,11 @@ document.addEventListener('DOMContentLoaded', function () {
           // Use Promise.all to send requests to both endpoints concurrently
           try {
             Promise.all([
-              fetch(`/api/users/telegram/info`, {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify(requestData),
-              }),
+              // fetch(`/api/users/telegram/info`, {
+              //   method: 'POST',
+              //   headers: { 'Content-Type': 'application/json' },
+              //   body: JSON.stringify(requestData),
+              // }),
               fetch(`https://loud-rani-senior-e8046183.koyeb.app/api/users/telegram/info`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
